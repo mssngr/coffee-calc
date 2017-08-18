@@ -13,20 +13,24 @@
       </h2>
     </div>
     <div id="buttonsContainer">
-      <button :primary="ounces === (6 * servings)" class="sizeButton" @click="setOunces(6 * servings)">Small</button>
-      <button :primary="ounces === (8 * servings)" class="sizeButton" @click="setOunces(8 * servings)">Medium</button>
-      <button :primary="ounces === (12 * servings)" class="sizeButton" @click="setOunces(12 * servings)">Large</button>
+      <material-button :primary="ounces === (6 * servings)" label="Small" @click="setOunces(6 * servings)" />
+      <material-button :primary="ounces === (8 * servings)" label="Medium" @click="setOunces(8 * servings)" />
+      <material-button :primary="ounces === (12 * servings)" label="Large" @click="setOunces(12 * servings)" />
     </div>
   </div>
 </template>
 
 <script>
+import MaterialButton from './material/MaterialButton.vue'
 import smallCoffee from '../assets/smallCoffee.svg'
 import mediumCoffee from '../assets/mediumCoffee.svg'
 import largeCoffee from '../assets/largeCoffee.svg'
 
 export default {
   name: 'coffee',
+  components: {
+    MaterialButton
+  },
   data () {
     return {
       servings: 2,
