@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h1>Coffee for </h1>
     <mu-card class="card">
       <mu-card-header>
       </mu-card-header>
@@ -15,9 +16,9 @@
       </mu-card-text>
     </mu-card>
     <div id="buttonsContainer">
-      <mu-raised-button :primary="ounces === 6" label="Small" class="sizeButton" @click="setOunces(6)" />
-      <mu-raised-button :primary="ounces === 8" label="Medium" class="sizeButton" @click="setOunces(8)" />
-      <mu-raised-button :primary="ounces === 12" label="Large" class="sizeButton" @click="setOunces(12)" />
+      <mu-raised-button :primary="ounces === (6 * servings)" label="Small" class="sizeButton" @click="setOunces(6 * servings)" />
+      <mu-raised-button :primary="ounces === (8 * servings)" label="Medium" class="sizeButton" @click="setOunces(8 * servings)" />
+      <mu-raised-button :primary="ounces === (12 * servings)" label="Large" class="sizeButton" @click="setOunces(12 * servings)" />
     </div>
   </div>
 </template>
@@ -31,13 +32,18 @@ export default {
   name: 'hello',
   data () {
     return {
+      servingsMenuOpen: false,
+      trigger: null,
+      servings: 2,
       beans: 30,
       ounces: 16,
-      ounceOptions: [6, 8, 12, 16, 24],
       smallCoffee,
       mediumCoffee,
       largeCoffee
     }
+  },
+  mounted () {
+    this.trigger = this.$refs.button.$el
   },
   computed: {
     bloom: function () {
@@ -48,13 +54,13 @@ export default {
     },
     currentSize: function () {
       switch (this.ounces) {
-        case 6:
+        case 6 * this.servings:
           return smallCoffee
 
-        case 8:
+        case 8 * this.servings:
           return mediumCoffee
 
-        case 12:
+        case 12 * this.servings:
           return largeCoffee
 
         default:
@@ -70,6 +76,15 @@ export default {
   methods: {
     setOunces: function (size) {
       this.ounces = size
+    },
+    handleChange: function (value) {
+      this.servings = value
+    },
+    toggle () {
+      this.servingsMenuOpen = !this.servingsMenuOpen
+    },
+    handleClose (e) {
+      this.servingsMenuOpen = false
     }
   }
 }
@@ -77,6 +92,7 @@ export default {
 
 <style scoped>
 h1 {
+  text-align: center;
   font-weight: normal;
   font-size: 2em;
 }
@@ -107,10 +123,19 @@ img {
   width: 30vw;
 }
 
+.servingsLabel {
+  font-size: 5em;
+}
+
 #buttonsContainer {
   width: 100%;
   display: flex;
   flex-wrap: nowrap;
   justify-content: space-around;
+}
+
+.servingsDropDown {
+  font-size: 5em;
+  color: green;
 }
 </style>
