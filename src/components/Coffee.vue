@@ -1,24 +1,21 @@
 <template>
   <div>
-    <h1>Coffee for </h1>
-    <mu-card class="card">
-      <mu-card-header>
-      </mu-card-header>
-      <mu-card-media>
-        <img :src="currentSize" />
-      </mu-card-media>
-      <mu-card-text>
-        <h2>
-          <span>{{beans}}g</span> of beans<br>
-          <span>{{bloom}}g</span> of bloom water<br>
-          <span>{{total}}g</span> of total water
-        </h2>
-      </mu-card-text>
-    </mu-card>
+    <h1>
+      Coffee for
+      <span>{{servings}}</span>
+    </h1>
+    <div class="card">
+      <img :src="currentSize" />
+      <h2>
+        <span>{{beans}}g</span> of beans<br>
+        <span>{{bloom}}g</span> of bloom water<br>
+        <span>{{total}}g</span> of total water
+      </h2>
+    </div>
     <div id="buttonsContainer">
-      <mu-raised-button :primary="ounces === (6 * servings)" label="Small" class="sizeButton" @click="setOunces(6 * servings)" />
-      <mu-raised-button :primary="ounces === (8 * servings)" label="Medium" class="sizeButton" @click="setOunces(8 * servings)" />
-      <mu-raised-button :primary="ounces === (12 * servings)" label="Large" class="sizeButton" @click="setOunces(12 * servings)" />
+      <button :primary="ounces === (6 * servings)" class="sizeButton" @click="setOunces(6 * servings)">Small</button>
+      <button :primary="ounces === (8 * servings)" class="sizeButton" @click="setOunces(8 * servings)">Medium</button>
+      <button :primary="ounces === (12 * servings)" class="sizeButton" @click="setOunces(12 * servings)">Large</button>
     </div>
   </div>
 </template>
@@ -29,11 +26,9 @@ import mediumCoffee from '../assets/mediumCoffee.svg'
 import largeCoffee from '../assets/largeCoffee.svg'
 
 export default {
-  name: 'hello',
+  name: 'coffee',
   data () {
     return {
-      servingsMenuOpen: false,
-      trigger: null,
       servings: 2,
       beans: 30,
       ounces: 16,
@@ -41,9 +36,6 @@ export default {
       mediumCoffee,
       largeCoffee
     }
-  },
-  mounted () {
-    this.trigger = this.$refs.button.$el
   },
   computed: {
     bloom: function () {
@@ -76,15 +68,6 @@ export default {
   methods: {
     setOunces: function (size) {
       this.ounces = size
-    },
-    handleChange: function (value) {
-      this.servings = value
-    },
-    toggle () {
-      this.servingsMenuOpen = !this.servingsMenuOpen
-    },
-    handleClose (e) {
-      this.servingsMenuOpen = false
     }
   }
 }
@@ -119,23 +102,10 @@ img {
   margin: 2em;
 }
 
-.sizeButton {
-  width: 30vw;
-}
-
-.servingsLabel {
-  font-size: 5em;
-}
-
 #buttonsContainer {
   width: 100%;
   display: flex;
   flex-wrap: nowrap;
   justify-content: space-around;
-}
-
-.servingsDropDown {
-  font-size: 5em;
-  color: green;
 }
 </style>
