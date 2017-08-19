@@ -7,6 +7,16 @@ function prefixedStyle(el, value) {
   })
 }
 
+const grow = (el) => () => {
+  el.style.transform = 'scale(1.1)'
+  el.style.transition = '3000ms'
+}
+
+const shrink = (el) => () => {
+  el.style.transform = 'scale(1)'
+  el.style.transition = '3000ms'
+}
+
 export default function(e, el, color) {
   const ripple = document.createElement('span')
 
@@ -39,6 +49,9 @@ export default function(e, el, color) {
   ripple.dataset.activated = Date.now()
 
   setTimeout(() => {
-    prefixedStyle(ripple, ' scale3d(0.45,0.45,0.45)')
+    prefixedStyle(ripple, 'scale3d(0.45,0.45,0.45)')
   }, 0)
+
+  setInterval(grow(ripple), 6000)
+  setTimeout(shrink(ripple), 9000)
 }
