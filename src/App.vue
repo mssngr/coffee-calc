@@ -11,19 +11,29 @@ export default {
 </script>
 
 <style>
-:root {
-  --primary-color: blue;
+html {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 #app {
-  font-family: 'Roboto', 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: 'Roboto';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   margin: 0;
   padding: 0.5em;
-  width: 100vw;
-  height: 100vh;
+  width: calc(100vw - 1em);
+  height: calc(100vw - 1em);
   background: white;
-  font-size: calc(1.75vw + 1.75vh);
+  font-size: 14px;
 }
 </style>

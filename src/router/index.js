@@ -9,7 +9,7 @@ export default new Router({
     {
       path: '/',
       name: 'Coffee',
-      component: Coffee
-    }
-  ]
+      component: Coffee,
+    },
+  ],
 })

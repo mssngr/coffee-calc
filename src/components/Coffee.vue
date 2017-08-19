@@ -13,9 +13,9 @@
       </h2>
     </div>
     <div id="buttonsContainer">
-      <material-button :primary="ounces === (6 * servings)" label="Small" @click="setOunces(6 * servings)" />
-      <material-button :primary="ounces === (8 * servings)" label="Medium" @click="setOunces(8 * servings)" />
-      <material-button :primary="ounces === (12 * servings)" label="Large" @click="setOunces(12 * servings)" />
+      <material-button :active="ounces === (6 * servings)" label="Small" @click="setOunces(6 * servings)" />
+      <material-button :active="ounces === (8 * servings)" label="Medium" @click="setOunces(8 * servings)" />
+      <material-button :active="ounces === (12 * servings)" label="Large" @click="setOunces(12 * servings)" />
     </div>
   </div>
 </template>
