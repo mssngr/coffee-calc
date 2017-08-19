@@ -29,27 +29,28 @@ import largeCoffee from '../assets/largeCoffee.svg'
 export default {
   name: 'coffee',
   components: {
-    MaterialButton
+    MaterialButton,
   },
-  data () {
+  data() {
     return {
       servings: 2,
       beans: 30,
       ounces: 16,
       smallCoffee,
       mediumCoffee,
-      largeCoffee
+      largeCoffee,
     }
   },
   computed: {
-    bloom: function () {
+    bloom() {
       return this.beans * 2
     },
-    total: function () {
+    total() {
       return this.beans * 16
     },
-    currentSize: function () {
+    currentSize() {
       switch (this.ounces) {
+
         case 6 * this.servings:
           return smallCoffee
 
@@ -61,19 +62,20 @@ export default {
 
         default:
           return mediumCoffee
+
       }
-    }
+    },
   },
   watch: {
-    ounces: function (newOuncesAmt) {
+    ounces() {
       this.beans = Math.round((this.ounces * 29.57) / 16)
-    }
+    },
   },
   methods: {
-    setOunces: function (size) {
+    setOunces(size) {
       this.ounces = size
-    }
-  }
+    },
+  },
 }
 </script>
 

@@ -9,10 +9,10 @@ export default {
   name: 'material-button',
   props: ['primary', 'secondary', 'label'],
   methods: {
-    onClick: function () {
+    onClick() {
       this.$emit('click')
-    }
-  }
+    },
+  },
 }
 </script>
 
