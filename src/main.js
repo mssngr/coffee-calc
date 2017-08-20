@@ -3,6 +3,9 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import VueMD from './components/vue-md'
+
+Vue.use(VueMD)
 
 Vue.config.productionTip = false
 

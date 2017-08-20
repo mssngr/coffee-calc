@@ -31,6 +31,7 @@ module.exports = {
     'eslint-comments/no-unused-disable': 'error',
     'eslint-comments/no-unused-enable': 'error',
     'eslint-comments/no-use': 'off',
+    'no-unused-vars': 'warn',
     'strict': 0,
     'indent': [
       'error',
@@ -168,10 +169,6 @@ module.exports = {
     'brace-style': [
       'warn',
       'stroustrup'
-    ],
-    'capitalized-comments': [
-      'warn',
-      'always'
     ],
     'comma-dangle': [
       'warn',

@@ -10,7 +10,8 @@
     }"
     :id="{[id]: id}"
     :style="[baseStyles, activeStyles, overrideStyles]"
-    @click="onClick"
+    @touchstart="startRipple"
+    @mousedown="startRipple"
   >
     {{label}}
   </button>
@@ -20,10 +21,14 @@
 import {primaryColor, secondaryColor, fontFamily} from './lib/variables'
 import ripple from './lib/ripple'
 import color from 'color'
-import './lib/styles.css'
 
 export default {
-  name: 'material-button',
+  name: 'md-button',
+  data() {
+    return {
+      clickedElement: undefined,
+    }
+  },
   props: [
     'className',
     'id',
@@ -42,6 +47,7 @@ export default {
     baseStyles() {
       const defaultStyle = {
         fontFamily,
+        '-tap-highlight-color': 'transparent',
       }
       if (this.raised) {
         return {
@@ -60,16 +66,34 @@ export default {
         const buttonRGB = buttonColor.rgb().array()
         return {
           backgroundColor: `rgba(${buttonRGB[0]}, ${buttonRGB[1]}, ${buttonRGB[2]}, 0.12)`,
-          '-tap-highlight-color': `rgba(${buttonRGB[0]}, ${buttonRGB[1]}, ${buttonRGB[2]}, 0.25)`, // eslint-disable-line max-len
         }
       }
       return {}
     },
   },
   methods: {
-    onClick(e) {
-      ripple(e, e.target, this.buttonRGB)
-      this.$emit('click')
+    startRipple(e) {
+      if (this.clickedElement) {
+        this.endRipple(e)
+      }
+      else {
+        this.clickedElement = e.target
+        ripple.start(e, e.target, this.buttonRGB)
+        window.addEventListener('mouseup', this.endRipple)
+        window.addEventListener('touchend', this.endRipple)
+        window.addEventListener('touchcancel', this.endRipple)
+      }
+    },
+    endRipple(e) {
+      e.preventDefault()
+      window.removeEventListener('mouseup', this.endRipple)
+      window.removeEventListener('touchend', this.endRipple)
+      window.removeEventListener('touchcancel', this.endRipple)
+      if (e.target === this.clickedElement || e.target.parentNode === this.clickedElement) {
+        this.$emit('click')
+      }
+      ripple.end()
+      this.clickedElement = undefined
     },
   },
 }

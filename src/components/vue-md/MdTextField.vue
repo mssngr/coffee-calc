@@ -5,7 +5,7 @@
 
 <script>
 export default {
-  name: 'material-text-field',
+  name: 'md-text-field',
 }
 </script>
 
