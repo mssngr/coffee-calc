@@ -1,3 +1,36 @@
+import color from 'color'
+
+export default {
+  install(Vue) {
+    Vue.mixin({
+      data() {
+        return {
+          clickedElement: undefined,
+        }
+      },
+      computed: {
+        defaultColorRGBArray() {
+          return color(this.defaultColor).rgb().array()
+        },
+      },
+      methods: {
+        startRipple(e) {
+          e.preventDefault()
+          this.clickedElement = e.target
+          start(e, this.defaultColorRGBArray)
+        },
+        endRipple(e) {
+          e.preventDefault()
+          if ((e.target === this.clickedElement) || (e.target === this.clickedElement.parentNode)) {
+            this.$emit('click')
+          }
+          this.clickedElement = undefined
+        },
+      },
+    })
+  },
+}
+
 function start(e, RGBArray) {
   expand(e, e.target, RGBArray)
   window.addEventListener('mouseup', end)
@@ -80,5 +113,3 @@ function disappear() {
     setTimeout(() => ripple.parentNode && ripple.parentNode.removeChild(ripple), 250)
   })
 }
-
-export default start

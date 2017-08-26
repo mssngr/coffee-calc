@@ -1,5 +1,5 @@
 export const primaryColor = '#673ab7'
-export const primaryColorActive = ''
+export const primaryColorActive = '#512da8'
 export const secondaryColor = '#ffff00'
-export const secondaryColorActive = ''
+export const secondaryColorActive = '#ffea00'
 export const fontFamily = 'Roboto'

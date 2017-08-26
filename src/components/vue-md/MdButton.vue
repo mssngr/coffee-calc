@@ -24,9 +24,11 @@
 
 <script>
 import Vue from 'vue'
-import Utilities from './utils'
+import Utilities from './lib/utils'
+import Ripple from './lib/ripple'
 
 Vue.use(Utilities)
+Vue.use(Ripple)
 
 export default {
   name: 'md-button',
@@ -38,31 +40,49 @@ export default {
     'dense',
     'label',
     'disabled',
+    'primary',
     'secondary',
     'color',
     'overrideStyles',
   ],
   computed: {
     baseStyles() {
-      const defaultStyle = {
-        fontFamily: this.vueMDFontFamily,
+      const {
+        raised,
+        primary,
+        secondary,
+        defaultColor,
+        fontFamily,
+        elevation,
+        clickedElement,
+      } = this
+      let styles = {
+        fontFamily,
+        color: defaultColor,
       }
-      if (this.raised) {
-        return {
-          ...defaultStyle,
-          backgroundColor: this.vueMDDefaultColor,
+      if (raised) {
+        styles = {
+          ...styles,
+          ...elevation[2],
+        }
+        if (primary || secondary) {
+          styles = {
+            ...styles,
+            backgroundColor: defaultColor,
+            color: 'white',
+          }
+        }
+        if (clickedElement) {
+          styles = {
+            ...styles,
+            ...elevation[8],
+          }
         }
       }
-      return {
-        ...defaultStyle,
-        color: this.vueMDDefaultColor,
-      }
+      return styles
     },
     activeStyles() {
       if (this.active) {
-        if (this.raised) {
-          return {}
-        }
         return {backgroundColor: this.defaultColor12Percent}
       }
       return {}
@@ -79,6 +99,7 @@ export default {
   outline: none;
   margin: 8px;
   box-sizing: border-box;
+  background: transparent;
   overflow: hidden;
   vertical-align: middle;
   text-align: center;
@@ -117,13 +138,11 @@ export default {
 }
 
 .flat {
-  background: transparent;
   padding: 0 8px;
 }
 
 .raised {
   padding: 0 16px;
-  color: white;
 }
 
 .disabled {
