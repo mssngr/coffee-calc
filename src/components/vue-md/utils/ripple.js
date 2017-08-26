@@ -23,8 +23,8 @@ function prefixedTransform(el, value) {
 }
 
 const hover = el => () => {
-  prefixedTransform(el, 'scale3d(0.45,0.45,0.45)')
-  setTimeout(() => prefixedTransform(el, 'scale3d(0.4,0.4,0.4)'), 2000)
+  prefixedTransform(el, 'scale3d(0.5,0.5,0.5)')
+  setTimeout(() => prefixedTransform(el, 'scale3d(0.45,0.45,0.45)'), 2000)
 }
 
 function expand(e, el, RGBArray) {
@@ -59,13 +59,13 @@ function expand(e, el, RGBArray) {
 
   prefixedTransform(ripple, 'scale3d(0.2,0.2,0.2)')
   setTimeout(() => {
-    prefixedTransform(ripple, 'scale3d(0.4,0.4,0.4)')
+    prefixedTransform(ripple, 'scale3d(0.45,0.45,0.45)')
   }, 0)
 
   setTimeout(() => {
     ripple.style.transition = '2000ms cubic-bezier(.4, 0, 1, 1)'
-    prefixedTransform(ripple, 'scale3d(0.45,0.45,0.45)')
-    setTimeout(() => prefixedTransform(ripple, 'scale3d(0.4,0.4,0.4)'), 2000)
+    prefixedTransform(ripple, 'scale3d(0.5,0.5,0.5)')
+    setTimeout(() => prefixedTransform(ripple, 'scale3d(0.45,0.45,0.45)'), 2000)
     setInterval(hover(ripple), 4000)
   }, 250)
 }
@@ -76,7 +76,7 @@ function disappear() {
   ripplesArray.forEach(ripple => {
     ripple.style.transition = '250ms cubic-bezier(.4, 0, .2, 1)'
     ripple.style.opacity = 0
-    prefixedTransform(ripple, 'scale3d(1,1,1)')
+    prefixedTransform(ripple, 'scale3d(1.5,1.5,1.5)')
     setTimeout(() => ripple.parentNode && ripple.parentNode.removeChild(ripple), 250)
   })
 }

@@ -60,9 +60,10 @@ export default {
     },
     activeStyles() {
       if (this.active) {
-        return {
-          backgroundColor: this.defaultColor12Percent,
+        if (this.raised) {
+          return {}
         }
+        return {backgroundColor: this.defaultColor12Percent}
       }
       return {}
     },
@@ -122,6 +123,7 @@ export default {
 
 .raised {
   padding: 0 16px;
+  color: white;
 }
 
 .disabled {

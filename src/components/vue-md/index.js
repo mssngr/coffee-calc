@@ -1,17 +1,25 @@
 import MdButton from './MdButton.vue'
 import MdTextField from './MdTextField.vue'
-import {primaryColor, secondaryColor, fontFamily} from './utils/variables'
+import {
+  primaryColor,
+  primaryColorActive,
+  secondaryColor,
+  secondaryColorActive,
+  fontFamily,
+} from './utils/variables'
 
 const VueMD = {
-  install(Vue, options) {
+  install(Vue, options = {}) {
     Vue.component(MdButton.name, MdButton)
     Vue.component(MdTextField.name, MdTextField)
     Vue.mixin({
       data() {
         return {
-          vueMDPrimaryColor: (options && options.primaryColor) || primaryColor,
-          vueMDSecondaryColor: (options && options.secondaryColor) || secondaryColor,
-          vueMDFontFamily: (options && options.fontFamily) || fontFamily,
+          vueMDPrimaryColor: options.primaryColor || primaryColor,
+          vueMDPrimaryColorActive: options.primaryColorActive || primaryColorActive,
+          vueMDSecondaryColor: options.secondaryColor || secondaryColor,
+          vueMDSecondaryColorActive: options.secondaryColorActive || secondaryColorActive,
+          vueMDFontFamily: options.fontFamily || fontFamily,
         }
       },
       computed: {
