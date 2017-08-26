@@ -1,3 +1,18 @@
+function start(e, RGBArray) {
+  expand(e, e.target, RGBArray)
+  window.addEventListener('mouseup', end)
+  window.addEventListener('touchend', end)
+  window.addEventListener('touchcancel', end)
+}
+
+function end(e) {
+  e.preventDefault()
+  window.removeEventListener('mouseup', end)
+  window.removeEventListener('touchend', end)
+  window.removeEventListener('touchcancel', end)
+  disappear()
+}
+
 function prefixedTransform(el, value) {
   [
     'transform',
@@ -12,7 +27,7 @@ const hover = el => () => {
   setTimeout(() => prefixedTransform(el, 'scale3d(0.4,0.4,0.4)'), 2000)
 }
 
-function start(e, el, color) {
+function expand(e, el, RGBArray) {
   const ripple = document.createElement('span')
   ripple.className = 'md-ripple'
 
@@ -31,7 +46,7 @@ function start(e, el, color) {
   ripple.style.position = 'absolute'
   ripple.style.left = `calc(-${size}px + ${x})`
   ripple.style.top = `calc(-${size}px + ${y})`
-  ripple.style.backgroundColor = `rgba(${color[0]}, ${color[1]}, ${color[2]}, 0.25`
+  ripple.style.backgroundColor = `rgba(${RGBArray[0]}, ${RGBArray[1]}, ${RGBArray[2]}, 0.25`
   ripple.style.borderRadius = '50%'
   ripple.style.transition = '250ms cubic-bezier(.4, 0, .2, 1)'
 
@@ -55,7 +70,7 @@ function start(e, el, color) {
   }, 250)
 }
 
-function end() {
+function disappear() {
   const ripples = document.getElementsByClassName('md-ripple')
   const ripplesArray = ripples && Array.from(ripples)
   ripplesArray.forEach(ripple => {
@@ -66,7 +81,4 @@ function end() {
   })
 }
 
-export default {
-  start,
-  end,
-}
+export default start

@@ -1,8 +1,11 @@
 <template>
   <button
     :class="{
-      flat: true,
       [className]: className,
+      base: true,
+      default: !dense,
+      dense: dense,
+      flat: !raised,
       raised: raised,
       raisedActive: raised && active,
       active: !raised && active,
@@ -12,28 +15,27 @@
     :style="[baseStyles, activeStyles, overrideStyles]"
     @touchstart="startRipple"
     @mousedown="startRipple"
+    @touchend="endRipple"
+    @click="endRipple"
   >
     {{label}}
   </button>
 </template>
 
 <script>
-import {primaryColor, secondaryColor, fontFamily} from './lib/variables'
-import ripple from './lib/ripple'
-import color from 'color'
+import Vue from 'vue'
+import Utilities from './utils'
+
+Vue.use(Utilities)
 
 export default {
   name: 'md-button',
-  data() {
-    return {
-      clickedElement: undefined,
-    }
-  },
   props: [
     'className',
     'id',
     'active',
     'raised',
+    'dense',
     'label',
     'disabled',
     'secondary',
@@ -41,97 +43,81 @@ export default {
     'overrideStyles',
   ],
   computed: {
-    buttonRGB() {
-      return color(this.color || this.secondary ? secondaryColor : primaryColor).rgb().array()
-    },
     baseStyles() {
       const defaultStyle = {
-        fontFamily,
-        '-tap-highlight-color': 'transparent',
+        fontFamily: this.vueMDFontFamily,
       }
       if (this.raised) {
         return {
           ...defaultStyle,
-          backgroundColor: this.color || this.secondary ? secondaryColor : primaryColor,
+          backgroundColor: this.vueMDDefaultColor,
         }
       }
       return {
         ...defaultStyle,
-        color: this.color || this.secondary ? secondaryColor : primaryColor,
+        color: this.vueMDDefaultColor,
       }
     },
     activeStyles() {
       if (this.active) {
-        const buttonColor = color(this.color || this.secondary ? secondaryColor : primaryColor)
-        const buttonRGB = buttonColor.rgb().array()
         return {
-          backgroundColor: `rgba(${buttonRGB[0]}, ${buttonRGB[1]}, ${buttonRGB[2]}, 0.12)`,
+          backgroundColor: this.defaultColor12Percent,
         }
       }
       return {}
-    },
-  },
-  methods: {
-    startRipple(e) {
-      if (this.clickedElement) {
-        this.endRipple(e)
-      }
-      else {
-        this.clickedElement = e.target
-        ripple.start(e, e.target, this.buttonRGB)
-        window.addEventListener('mouseup', this.endRipple)
-        window.addEventListener('touchend', this.endRipple)
-        window.addEventListener('touchcancel', this.endRipple)
-      }
-    },
-    endRipple(e) {
-      e.preventDefault()
-      window.removeEventListener('mouseup', this.endRipple)
-      window.removeEventListener('touchend', this.endRipple)
-      window.removeEventListener('touchcancel', this.endRipple)
-      if (e.target === this.clickedElement || e.target.parentNode === this.clickedElement) {
-        this.$emit('click')
-      }
-      ripple.end()
-      this.clickedElement = undefined
     },
   },
 }
 </script>
 
 <style scoped>
-.flat {
+.base {
   display: inline-block;
-  min-width: 88px;
-  height: 36px;
-  padding: 0 8px;
   border: none;
   border-radius: 2px;
   outline: none;
+  margin: 8px;
   box-sizing: border-box;
   overflow: hidden;
-  background: transparent;
-  font-size: 14px;
-  font-weight: 500;
   vertical-align: middle;
   text-align: center;
   text-transform: uppercase;
   user-select: none;
   cursor: pointer;
   -webkit-appearance: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
-.flat:focus {
+.base:focus {
   outline: none;
 }
 
-.flat:active {
+.base:active {
   outline: none;
 }
 
-.flat::-moz-focus-inner {
+.base::-moz-focus-inner {
   padding: 0;
   border: 0;
+}
+
+.default {
+  min-width: 64px;
+  height: 36px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.dense {
+  min-width: 64px;
+  height: 32px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.flat {
+  background: transparent;
+  padding: 0 8px;
 }
 
 .raised {
