@@ -68,6 +68,13 @@ export default {
           const RGBArray = color(this.defaultColor).rgb().array()
           return `rgba(${RGBArray[0]}, ${RGBArray[1]}, ${RGBArray[2]}, 0.25)`
         },
+        defaultColor40Percent() {
+          const RGBArray = color(this.defaultColor).rgb().array()
+          return `rgba(${RGBArray[0]}, ${RGBArray[1]}, ${RGBArray[2]}, 0.4)`
+        },
+        defaultColorDarkened12Percent() {
+          return color(this.defaultColor).darken(0.12)
+        },
         fontFamily() {
           return this.vueMDOptions.fontFamily || fontFamily
         },

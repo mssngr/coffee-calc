@@ -3,6 +3,7 @@ const penumbra = 'rgba(0, 0, 0, 0.12)'
 const ambient = 'rgba(0, 0, 0, 0.2)'
 
 export default {
+  0: {boxShadow: 'none'},
   1: {boxShadow: `0 0 2px 0 ${umbra}, 0 2px 2px 0 ${penumbra}, 0 1px 3px 0 ${ambient}`},
   2: {boxShadow: `0 0 4px 0 ${umbra}, 0 3px 4px 0 ${penumbra}, 0 1px 5px 0 ${ambient}`},
   3: {boxShadow: `0 3px 3px 0 ${umbra}, 0 3px 4px 0 ${penumbra}, 0 1px 8px 0 ${ambient}`},

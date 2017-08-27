@@ -1,5 +1,3 @@
-import color from 'color'
-
 export default {
   install(Vue) {
     Vue.mixin({
@@ -11,18 +9,24 @@ export default {
       methods: {
         startRipple(e) {
           e.preventDefault()
-          this.pressedElement = e.target
-          const rippleColor = this.inverted
-            ? 'rgba(255, 255, 255, 0.25)'
-            : this.defaultColor25Percent
-          start(e, rippleColor)
+          if (!this.disabled) {
+            this.pressedElement = e.target
+            const rippleColor = this.inverted
+              ? 'rgba(255, 255, 255, 0.25)'
+              : this.defaultColor25Percent
+            start(e, rippleColor)
+          }
         },
         endRipple(e) {
           e.preventDefault()
-          if ((e.target === this.pressedElement) || (e.target === this.pressedElement.parentNode)) {
-            this.$emit('click')
+          if (!this.disabled) {
+            if (
+              (e.target === this.pressedElement) || (e.target === this.pressedElement.parentNode)
+            ) {
+              this.$emit('click')
+            }
+            this.pressedElement = undefined
           }
-          this.pressedElement = undefined
         },
       },
     })

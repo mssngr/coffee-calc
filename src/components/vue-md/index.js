@@ -4,9 +4,9 @@ import elevation from './lib/elevation'
 import {durations, curves} from './lib/transitions'
 import {
   primaryColor,
-  primaryColorActive,
+  primaryColorFocused,
   secondaryColor,
-  secondaryColorActive,
+  secondaryColorFocused,
   fontFamily,
 } from './lib/defaults'
 
@@ -19,9 +19,9 @@ export default {
         return {
           vueMDOptions: options,
           vueMDPrimaryColor: options.primaryColor || primaryColor,
-          vueMDPrimaryColorActive: options.primaryColorActive || primaryColorActive,
+          vueMDPrimaryColorFocused: options.primaryColorFocused || primaryColorFocused,
           vueMDSecondaryColor: options.secondaryColor || secondaryColor,
-          vueMDSecondaryColorActive: options.secondaryColorActive || secondaryColorActive,
+          vueMDSecondaryColorFocused: options.secondaryColorFocused || secondaryColorFocused,
           vueMDFontFamily: options.fontFamily || fontFamily,
           vueMDElevation: options.elevation || elevation,
           vueMDTransitionCurves: options.transitionCurves || curves,

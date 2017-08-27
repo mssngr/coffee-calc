@@ -7,7 +7,8 @@
       dense: dense,
       flat: !raised,
       raised: raised,
-      disabled: disabled,
+      disabled: disabled && !inverted,
+      disabledInverted: disabled && inverted,
     }"
     :id="{[id]: id}"
     :style="[baseStyles, interactiveStyles, overrideStyles]"
@@ -83,30 +84,60 @@ export default {
         pressedElement,
         elevation,
         focused,
+        disabled,
         inverted,
+        raised,
         defaultColorFocused,
         defaultColor12Percent,
+        defaultColor40Percent,
+        defaultColorDarkened12Percent,
       } = this
 
       let styles = {}
       if (pressedElement) {
         styles = {
           ...styles,
-          ...elevation[8],
+          backgroundColor: defaultColor40Percent,
           transform: 'scale(1.012)',
           webkitTransform: 'scale(1.012)',
         }
+        if (inverted) {
+          styles = {
+            ...styles,
+            backgroundColor: defaultColorDarkened12Percent,
+          }
+        }
+        if (raised) {
+          styles = {
+            ...styles,
+            ...elevation[8],
+          }
+        }
       }
       if (focused) {
+        styles = {
+          ...styles,
+          backgroundColor: defaultColor12Percent,
+        }
         if (inverted) {
           styles = {
             ...styles,
             backgroundColor: defaultColorFocused,
           }
-        } else {
+        }
+      }
+      if (disabled) {
+        styles = {
+          ...styles,
+          ...elevation[0],
+          color: 'rgba(0, 0, 0, 0.26)',
+          backgroundColor: 'rgba(0, 0, 0, 0.12)',
+        }
+        if (inverted) {
           styles = {
             ...styles,
-            backgroundColor: defaultColor12Percent,
+            color: 'rgba(255, 255, 255, 0.52)',
+            backgroundColor: 'rgba(0, 0, 0, 0.26)',
           }
         }
       }
