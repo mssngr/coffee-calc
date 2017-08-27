@@ -164,7 +164,6 @@ export default {
   cursor: pointer;
   -webkit-appearance: none;
   -webkit-tap-highlight-color: transparent;
-  -webkit-perspective: 50px;
 }
 
 .base:focus {

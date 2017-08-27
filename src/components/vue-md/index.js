@@ -1,4 +1,5 @@
 import MdButton from './MdButton.vue'
+import MdCard from './MdCard.vue'
 import MdTextField from './MdTextField.vue'
 import elevation from './lib/elevation'
 import {durations, curves} from './lib/transitions'
@@ -13,6 +14,7 @@ import {
 export default {
   install(Vue, options = {}) {
     Vue.component(MdButton.name, MdButton)
+    Vue.component(MdCard.name, MdCard)
     Vue.component(MdTextField.name, MdTextField)
     Vue.mixin({
       data() {

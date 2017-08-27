@@ -4,14 +4,14 @@
       Coffee for
       <span>{{servings}}</span>
     </h1>
-    <div class="card">
+    <md-card class="card">
       <img :src="currentSize" />
       <h2>
         <span>{{beans}}g</span> of beans<br>
         <span>{{bloom}}g</span> of bloom water<br>
         <span>{{total}}g</span> of total water
       </h2>
-    </div>
+    </md-card>
     <div id="buttonsContainer">
       <md-button
         :raised="true"
@@ -123,6 +123,7 @@ img {
 
 .card {
   margin: 2em;
+  padding: 14px;
 }
 
 #buttonsContainer {
