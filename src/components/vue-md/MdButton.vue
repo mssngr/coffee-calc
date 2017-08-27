@@ -55,10 +55,15 @@ export default {
         fontFamily,
         elevation,
         clickedElement,
+        transitionCurves,
+        transitionDurations,
       } = this
+
       let styles = {
         fontFamily,
         color: defaultColor,
+        transitionTimingFunction: transitionCurves.sharp,
+        transitionDuration: transitionDurations.standard,
       }
       if (raised) {
         styles = {
@@ -76,6 +81,8 @@ export default {
           styles = {
             ...styles,
             ...elevation[8],
+            transform: 'scale(1.05)',
+            webkitTransform: 'scale(1.05)',
           }
         }
       }
@@ -108,6 +115,7 @@ export default {
   cursor: pointer;
   -webkit-appearance: none;
   -webkit-tap-highlight-color: transparent;
+  -webkit-perspective: 50px;
 }
 
 .base:focus {

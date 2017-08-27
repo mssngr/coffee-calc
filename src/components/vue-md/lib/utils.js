@@ -1,13 +1,13 @@
 import color from 'color'
 import elevation from './elevation'
-import transitions from './transitions'
+import {durations, curves} from './transitions'
 import {
   primaryColor,
   primaryColorActive,
   secondaryColor,
   secondaryColorActive,
   fontFamily,
-} from './variables'
+} from './defaults'
 
 export default {
   install(Vue) {
@@ -59,26 +59,23 @@ export default {
         elevation() {
           return this.vueMDOptions.elevation || elevation
         },
+        transitionCurves() {
+          return this.vueMDOptions.transitionCurves || curves
+        },
         transitionDurations() {
           if (this.vueMDOptions.transitionDurations) {
             return this.vueMDOptions.transitionDurations
           }
           if (this.vueMDOptions.tablet) {
-            return transitions.duration.tablet
+            return durations.tablet
           }
           if (this.vueMDOptions.wearable) {
-            return transitions.duration.wearable
+            return durations.wearable
           }
           if (this.vueMDOptions.desktop) {
-            return transitions.duration.desktop
+            return durations.desktop
           }
-          return transitions.duration.mobile
-        },
-        transitionCurves() {
-          if (this.vueMDOptions.transitionCurves) {
-            return this.vueMDOptions.transitionCurves
-          }
-          return transitions.curves
+          return durations.mobile
         },
       },
     })

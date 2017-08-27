@@ -1,14 +1,14 @@
 import MdButton from './MdButton.vue'
 import MdTextField from './MdTextField.vue'
 import elevation from './lib/elevation'
-import transitions from './lib/transitions'
+import {durations, curves} from './lib/transitions'
 import {
   primaryColor,
   primaryColorActive,
   secondaryColor,
   secondaryColorActive,
   fontFamily,
-} from './lib/variables'
+} from './lib/defaults'
 
 export default {
   install(Vue, options = {}) {
@@ -24,6 +24,7 @@ export default {
           vueMDSecondaryColorActive: options.secondaryColorActive || secondaryColorActive,
           vueMDFontFamily: options.fontFamily || fontFamily,
           vueMDElevation: options.elevation || elevation,
+          vueMDTransitionCurves: options.transitionCurves || curves,
         }
       },
       computed: {
@@ -32,21 +33,15 @@ export default {
             return options.transitionDurations
           }
           if (options.tablet) {
-            return transitions.duration.tablet
+            return durations.tablet
           }
           if (options.wearable) {
-            return transitions.duration.wearable
+            return durations.wearable
           }
           if (options.desktop) {
-            return transitions.duration.desktop
+            return durations.desktop
           }
-          return transitions.duration.mobile
-        },
-        vueMDTransitionCurves() {
-          if (options.transitionCurves) {
-            return options.transitionCurves
-          }
-          return transitions.curves
+          return durations.mobile
         },
       },
     })

@@ -32,7 +32,7 @@ export default {
 }
 
 function start(e, RGBArray) {
-  expand(e, e.target, RGBArray)
+  appear(e, e.target, RGBArray)
   window.addEventListener('mouseup', end)
   window.addEventListener('touchend', end)
   window.addEventListener('touchcancel', end)
@@ -60,7 +60,7 @@ const hover = el => () => {
   setTimeout(() => prefixedTransform(el, 'scale3d(0.45,0.45,0.45)'), 2000)
 }
 
-function expand(e, el, RGBArray) {
+function appear(e, el, RGBArray) {
   const ripple = document.createElement('span')
   ripple.className = 'md-ripple'
 
@@ -109,7 +109,8 @@ function disappear() {
   ripplesArray.forEach(ripple => {
     ripple.style.transition = '250ms cubic-bezier(.4, 0, .2, 1)'
     ripple.style.opacity = 0
-    prefixedTransform(ripple, 'scale3d(1.5,1.5,1.5)')
+    ripple.style.filter = 'blur(10px)'
+    prefixedTransform(ripple, 'scale3d(1,1,1)')
     setTimeout(() => ripple.parentNode && ripple.parentNode.removeChild(ripple), 250)
   })
 }

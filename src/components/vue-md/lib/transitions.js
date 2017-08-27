@@ -1,4 +1,4 @@
-export const duration = {
+export const durations = {
   mobile: {
     standard: '300ms',
     long: '375ms',
