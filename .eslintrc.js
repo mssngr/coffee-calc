@@ -166,10 +166,6 @@ module.exports = {
       'error',
       'never'
     ],
-    'brace-style': [
-      'warn',
-      'stroustrup'
-    ],
     'comma-dangle': [
       'warn',
       'always-multiline'

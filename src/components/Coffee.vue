@@ -15,19 +15,25 @@
     <div id="buttonsContainer">
       <md-button
         :raised="true"
-        :active="ounces === (6 * servings)"
+        :primary="true"
+        :inverted="true"
+        :focused="ounces === (6 * servings)"
         label="Small"
         @click="setOunces(6 * servings)"
       />
       <md-button
         :raised="true"
-        :active="ounces === (8 * servings)"
+        :primary="true"
+        :inverted="true"
+        :focused="ounces === (8 * servings)"
         label="Medium"
         @click="setOunces(8 * servings)"
       />
       <md-button
         :raised="true"
-        :active="ounces === (12 * servings)"
+        :primary="true"
+        :inverted="true"
+        :focused="ounces === (12 * servings)"
         label="Large"
         @click="setOunces(12 * servings)"
       />

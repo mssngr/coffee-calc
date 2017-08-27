@@ -7,12 +7,10 @@
       dense: dense,
       flat: !raised,
       raised: raised,
-      raisedActive: raised && active,
-      active: !raised && active,
       disabled: disabled,
     }"
     :id="{[id]: id}"
-    :style="[baseStyles, activeStyles, overrideStyles]"
+    :style="[baseStyles, interactiveStyles, overrideStyles]"
     @touchstart="startRipple"
     @mousedown="startRipple"
     @touchend="endRipple"
@@ -35,7 +33,7 @@ export default {
   props: [
     'className',
     'id',
-    'active',
+    'focused',
     'raised',
     'dense',
     'label',
@@ -43,18 +41,18 @@ export default {
     'primary',
     'secondary',
     'color',
+    'inverted',
     'overrideStyles',
   ],
   computed: {
     baseStyles() {
       const {
         raised,
-        primary,
-        secondary,
+        inverted,
+        invertedTextColor,
         defaultColor,
         fontFamily,
         elevation,
-        clickedElement,
         transitionCurves,
         transitionDurations,
       } = this
@@ -70,29 +68,49 @@ export default {
           ...styles,
           ...elevation[2],
         }
-        if (primary || secondary) {
-          styles = {
-            ...styles,
-            backgroundColor: defaultColor,
-            color: 'white',
-          }
-        }
-        if (clickedElement) {
-          styles = {
-            ...styles,
-            ...elevation[8],
-            transform: 'scale(1.05)',
-            webkitTransform: 'scale(1.05)',
-          }
+      }
+      if (inverted) {
+        styles = {
+          ...styles,
+          backgroundColor: defaultColor,
+          color: invertedTextColor,
         }
       }
       return styles
     },
-    activeStyles() {
-      if (this.active) {
-        return {backgroundColor: this.defaultColor12Percent}
+    interactiveStyles() {
+      const {
+        pressedElement,
+        elevation,
+        focused,
+        inverted,
+        defaultColorFocused,
+        defaultColor12Percent,
+      } = this
+
+      let styles = {}
+      if (pressedElement) {
+        styles = {
+          ...styles,
+          ...elevation[8],
+          transform: 'scale(1.012)',
+          webkitTransform: 'scale(1.012)',
+        }
       }
-      return {}
+      if (focused) {
+        if (inverted) {
+          styles = {
+            ...styles,
+            backgroundColor: defaultColorFocused,
+          }
+        } else {
+          styles = {
+            ...styles,
+            backgroundColor: defaultColor12Percent,
+          }
+        }
+      }
+      return styles
     },
   },
 }

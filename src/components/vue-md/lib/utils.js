@@ -3,9 +3,11 @@ import elevation from './elevation'
 import {durations, curves} from './transitions'
 import {
   primaryColor,
-  primaryColorActive,
+  primaryColorFocused,
+  textInPrimary,
   secondaryColor,
-  secondaryColorActive,
+  secondaryColorFocused,
+  textInSecondary,
   fontFamily,
 } from './defaults'
 
@@ -16,14 +18,14 @@ export default {
         primaryColor() {
           return this.vueMDOptions.primaryColor || primaryColor
         },
-        primaryColorActive() {
-          return this.vueMDOptions.primaryColorActive || primaryColorActive
+        primaryColorFocused() {
+          return this.vueMDOptions.primaryColorFocused || primaryColorFocused
         },
         secondaryColor() {
           return this.vueMDOptions.secondaryColor || secondaryColor
         },
-        secondaryColorActive() {
-          return this.vueMDOptions.secondaryColorActive || secondaryColorActive
+        secondaryColorFocused() {
+          return this.vueMDOptions.secondaryColorFocused || secondaryColorFocused
         },
         defaultColor() {
           if (this.color) {
@@ -37,21 +39,34 @@ export default {
           }
           return 'black'
         },
-        defaultColorActive() {
-          if (this.activeColor) {
-            return this.activeColor
+        defaultColorFocused() {
+          if (this.colorFocused) {
+            return this.colorFocused
           }
           if (this.primary) {
-            return this.primaryColorActive
+            return this.primaryColorFocused
           }
           if (this.secondary) {
-            return this.secondaryColorActive
+            return this.secondaryColorFocused
           }
           return 'black'
+        },
+        invertedTextColor() {
+          if (this.primary) {
+            return textInPrimary
+          }
+          if (this.secondary) {
+            return textInSecondary
+          }
+          return 'white'
         },
         defaultColor12Percent() {
           const RGBArray = color(this.defaultColor).rgb().array()
           return `rgba(${RGBArray[0]}, ${RGBArray[1]}, ${RGBArray[2]}, 0.12)`
+        },
+        defaultColor25Percent() {
+          const RGBArray = color(this.defaultColor).rgb().array()
+          return `rgba(${RGBArray[0]}, ${RGBArray[1]}, ${RGBArray[2]}, 0.25)`
         },
         fontFamily() {
           return this.vueMDOptions.fontFamily || fontFamily

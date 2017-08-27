@@ -5,34 +5,32 @@ export default {
     Vue.mixin({
       data() {
         return {
-          clickedElement: undefined,
+          pressedElement: undefined,
         }
-      },
-      computed: {
-        defaultColorRGBArray() {
-          return color(this.defaultColor).rgb().array()
-        },
       },
       methods: {
         startRipple(e) {
           e.preventDefault()
-          this.clickedElement = e.target
-          start(e, this.defaultColorRGBArray)
+          this.pressedElement = e.target
+          const rippleColor = this.inverted
+            ? 'rgba(255, 255, 255, 0.25)'
+            : this.defaultColor25Percent
+          start(e, rippleColor)
         },
         endRipple(e) {
           e.preventDefault()
-          if ((e.target === this.clickedElement) || (e.target === this.clickedElement.parentNode)) {
+          if ((e.target === this.pressedElement) || (e.target === this.pressedElement.parentNode)) {
             this.$emit('click')
           }
-          this.clickedElement = undefined
+          this.pressedElement = undefined
         },
       },
     })
   },
 }
 
-function start(e, RGBArray) {
-  appear(e, e.target, RGBArray)
+function start(e, rippleColor) {
+  appear(e, e.target, rippleColor)
   window.addEventListener('mouseup', end)
   window.addEventListener('touchend', end)
   window.addEventListener('touchcancel', end)
@@ -60,7 +58,7 @@ const hover = el => () => {
   setTimeout(() => prefixedTransform(el, 'scale3d(0.45,0.45,0.45)'), 2000)
 }
 
-function appear(e, el, RGBArray) {
+function appear(e, el, rippleColor) {
   const ripple = document.createElement('span')
   ripple.className = 'md-ripple'
 
@@ -79,7 +77,7 @@ function appear(e, el, RGBArray) {
   ripple.style.position = 'absolute'
   ripple.style.left = `calc(-${size}px + ${x})`
   ripple.style.top = `calc(-${size}px + ${y})`
-  ripple.style.backgroundColor = `rgba(${RGBArray[0]}, ${RGBArray[1]}, ${RGBArray[2]}, 0.25`
+  ripple.style.backgroundColor = rippleColor
   ripple.style.borderRadius = '50%'
   ripple.style.transition = '250ms cubic-bezier(.4, 0, .2, 1)'
 
