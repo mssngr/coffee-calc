@@ -29,10 +29,7 @@ body {
   font-family: 'Roboto';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  margin: 0;
-  padding: 0.5em;
-  width: calc(100vw - 1em);
-  height: calc(100vw - 1em);
+  padding: 16px;
   background: white;
   font-size: 14px;
 }

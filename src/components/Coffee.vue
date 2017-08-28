@@ -1,11 +1,13 @@
-<template>
+<template scope="props">
   <div>
     <h1>
       Coffee for
       <span>{{servings}}</span>
     </h1>
-    <md-card class="card">
-      <img :src="currentSize" />
+    <md-card>
+      <md-card-media cardID="props.cardID">
+        <img :src="currentSize" />
+      </md-card-media>
       <h2>
         <span>{{beans}}g</span> of beans<br>
         <span>{{bloom}}g</span> of bloom water<br>
@@ -56,6 +58,7 @@ export default {
       smallCoffee,
       mediumCoffee,
       largeCoffee,
+      cardID: `cardID${Math.random()}`.replace(/\W/g, ''),
     }
   },
   computed: {
@@ -119,11 +122,6 @@ span {
 
 img {
   height: 7.5em;
-}
-
-.card {
-  margin: 2em;
-  padding: 14px;
 }
 
 #buttonsContainer {

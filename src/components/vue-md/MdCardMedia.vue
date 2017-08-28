@@ -3,10 +3,7 @@
     :class="{
       [className]: className,
       base: true,
-      defaultColor: !color,
-      defaultBackgroundColor: !backgroundColor,
     }"
-    :id="cardID"
     :style="[baseStyles, interactiveStyles, overrideStyles]"
   >
     <slot />
@@ -20,40 +17,34 @@ import Utilities from './lib/utils'
 Vue.use(Utilities)
 
 export default {
-  name: 'md-card',
+  name: 'md-card-media',
   props: [
     'className',
     'overrideStyles',
-    'color',
-    'backgroundColor',
+    'aspectRatio',
+    'cardID',
   ],
   computed: {
     baseStyles() {
-      console.log(this.cardID)
       const {
         fontFamily,
-        elevation,
         transitionCurves,
         transitionDurations,
-        color,
-        backgroundColor,
+        aspectRatio,
       } = this
+      console.log(document.getElementById(this.cardID), this.cardID)
+      const widthOfParent = document.getElementById(this.cardID).clientWidth
+      const height = `${widthOfParent / (16 / 9)}px`
       let styles = {
-        ...elevation[2],
         fontFamily,
+        height,
         transitionTimingFunction: transitionCurves.standard,
         transitionDuration: transitionDurations.standard,
       }
-      if (color) {
+      if (aspectRatio === '1:1' || aspectRatio === 'square') {
         styles = {
           ...styles,
-          color,
-        }
-      }
-      if (backgroundColor) {
-        styles = {
-          ...styles,
-          backgroundColor,
+          height: `${widthOfParent}px`,
         }
       }
       return styles
@@ -66,16 +57,13 @@ export default {
 </script>
 
 <style scoped>
+img {
+  width: 100%;
+  height: 100%;
+}
+
 .base {
-  border-radius: 2px;
-  margin: 8px;
-}
-
-.defaultColor {
-  color: black;
-}
-
-.defaultBackgroundColor {
-  background-color: white;
+  width: 100%;
+  overflow: hidden;
 }
 </style>

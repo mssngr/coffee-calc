@@ -50,6 +50,7 @@ export default {
       const {
         raised,
         inverted,
+        disabled,
         invertedTextColor,
         defaultColor,
         fontFamily,
@@ -64,7 +65,7 @@ export default {
         transitionTimingFunction: transitionCurves.sharp,
         transitionDuration: transitionDurations.standard,
       }
-      if (raised) {
+      if (raised && !disabled) {
         styles = {
           ...styles,
           ...elevation[2],
@@ -84,7 +85,6 @@ export default {
         pressedElement,
         elevation,
         focused,
-        disabled,
         inverted,
         raised,
         defaultColorFocused,
@@ -123,21 +123,6 @@ export default {
           styles = {
             ...styles,
             backgroundColor: defaultColorFocused,
-          }
-        }
-      }
-      if (disabled) {
-        styles = {
-          ...styles,
-          ...elevation[0],
-          color: 'rgba(0, 0, 0, 0.26)',
-          backgroundColor: 'rgba(0, 0, 0, 0.12)',
-        }
-        if (inverted) {
-          styles = {
-            ...styles,
-            color: 'rgba(255, 255, 255, 0.52)',
-            backgroundColor: 'rgba(0, 0, 0, 0.26)',
           }
         }
       }
@@ -203,6 +188,14 @@ export default {
 
 .disabled {
   color: rgba(0, 0, 0, 0.26);
+  background-color: rgba(0, 0, 0, 0.12);
+  cursor: default;
+  pointer-events: none;
+}
+
+.disabledInverted {
+  color: rgba(255, 255, 255, 0.52);
+  background-color: rgba(0, 0, 0, 0.26);
   cursor: default;
   pointer-events: none;
 }
