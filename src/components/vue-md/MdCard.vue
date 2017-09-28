@@ -8,10 +8,7 @@
     }"
     :style="[baseStyles, interactiveStyles, overrideStyles]"
   >
-    <slot name="header" />
-    <slot name="media" />
-    <slot name="content" />
-    <slot name="footer" />
+    <slot />
   </div>
 </template>
 
@@ -70,6 +67,7 @@ export default {
 .md-card-base {
   border-radius: 2px;
   margin: 8px;
+  padding: 16px;
 }
 
 .defaultColor {

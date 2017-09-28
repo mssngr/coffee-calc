@@ -5,10 +5,9 @@
       <span>{{servings}}</span>
     </h1>
     <md-card>
-      <md-card-media aspectRatio="16:9" slot="media">
-        <img :src="currentSize" />
-      </md-card-media>
-      <h2 slot="content">
+      <md-card-header><h1 :style="cardHeader">{{currentSize.label}}</h1></md-card-header>
+      <img class="coffeeIcon" :src="currentSize.media" />
+      <h2>
         <span>{{beans}}g</span> of beans<br>
         <span>{{bloom}}g</span> of bloom water<br>
         <span>{{total}}g</span> of total water
@@ -44,9 +43,14 @@
 </template>
 
 <script>
+import Vue from 'vue'
+import Utilities from './vue-md/lib/utils'
+
 import smallCoffee from '../assets/smallCoffee.svg'
 import mediumCoffee from '../assets/mediumCoffee.svg'
 import largeCoffee from '../assets/largeCoffee.svg'
+
+Vue.use(Utilities)
 
 export default {
   name: 'coffee',
@@ -58,7 +62,9 @@ export default {
       smallCoffee,
       mediumCoffee,
       largeCoffee,
-      cardID: `cardID${Math.random()}`.replace(/\W/g, ''),
+      cardHeader: {
+        backgroundColor: 'blue',
+      },
     }
   },
   computed: {
@@ -72,16 +78,32 @@ export default {
       switch (this.ounces) {
 
         case 6 * this.servings:
-          return smallCoffee
+          return {
+            id: 'sm',
+            label: 'Small',
+            media: smallCoffee,
+          }
 
         case 8 * this.servings:
-          return mediumCoffee
+          return {
+            id: 'md',
+            label: 'Medium',
+            media: mediumCoffee,
+          }
 
         case 12 * this.servings:
-          return largeCoffee
+          return {
+            id: 'lg',
+            label: 'Large',
+            media: largeCoffee,
+          }
 
         default:
-          return mediumCoffee
+          return {
+            id: 'md',
+            label: 'Medium',
+            media: mediumCoffee,
+          }
 
       }
     },
@@ -122,6 +144,11 @@ span {
 
 img {
   height: 7.5em;
+}
+
+.coffeeIcon {
+  width: 100%;
+  height: 100%;
 }
 
 #buttonsContainer {

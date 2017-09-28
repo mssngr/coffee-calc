@@ -1,12 +1,12 @@
 <template>
-  <div
-    :class="{
-      [className]: className,
-      'md-card-media-base': true,
-    }"
-    :style="[baseStyles, interactiveStyles, overrideStyles]"
-  >
-    <slot />
+  <div>
+    <slot
+      :class="{
+        'md-card-header-base': true,
+        [className]: className,
+      }"
+      :style="[baseStyles, interactiveStyles, overrideStyles]"
+    />
   </div>
 </template>
 
@@ -17,7 +17,7 @@ import Utilities from './lib/utils'
 Vue.use(Utilities)
 
 export default {
-  name: 'md-card-media',
+  name: 'md-card-header',
   props: [
     'className',
     'overrideStyles',
@@ -44,15 +44,11 @@ export default {
 </script>
 
 <style scoped>
-img {
+.md-card-header-base {
   width: 100%;
   height: 100%;
-}
-
-.md-card-media-base {
-  width: calc(100% + 32px);
-  height: 100%;
-  margin: 0 -16px;
+  margin: -16px;
+  padding: 16px;
   overflow: hidden;
 }
 </style>
