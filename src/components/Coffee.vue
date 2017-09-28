@@ -5,10 +5,10 @@
       <span>{{servings}}</span>
     </h1>
     <md-card>
-      <md-card-media cardID="props.cardID">
+      <md-card-media aspectRatio="16:9" slot="media">
         <img :src="currentSize" />
       </md-card-media>
-      <h2>
+      <h2 slot="content">
         <span>{{beans}}g</span> of beans<br>
         <span>{{bloom}}g</span> of bloom water<br>
         <span>{{total}}g</span> of total water

@@ -2,14 +2,16 @@
   <div
     :class="{
       [className]: className,
-      base: true,
+      'md-card-base': true,
       defaultColor: !color,
       defaultBackgroundColor: !backgroundColor,
     }"
-    :id="cardID"
     :style="[baseStyles, interactiveStyles, overrideStyles]"
   >
-    <slot />
+    <slot name="header" />
+    <slot name="media" />
+    <slot name="content" />
+    <slot name="footer" />
   </div>
 </template>
 
@@ -29,7 +31,6 @@ export default {
   ],
   computed: {
     baseStyles() {
-      console.log(this.cardID)
       const {
         fontFamily,
         elevation,
@@ -66,7 +67,7 @@ export default {
 </script>
 
 <style scoped>
-.base {
+.md-card-base {
   border-radius: 2px;
   margin: 8px;
 }

@@ -2,7 +2,7 @@
   <div
     :class="{
       [className]: className,
-      base: true,
+      'md-card-media-base': true,
     }"
     :style="[baseStyles, interactiveStyles, overrideStyles]"
   >
@@ -22,7 +22,6 @@ export default {
     'className',
     'overrideStyles',
     'aspectRatio',
-    'cardID',
   ],
   computed: {
     baseStyles() {
@@ -32,14 +31,17 @@ export default {
         transitionDurations,
         aspectRatio,
       } = this
-      console.log(document.getElementById(this.cardID), this.cardID)
-      const widthOfParent = document.getElementById(this.cardID).clientWidth
-      const height = `${widthOfParent / (16 / 9)}px`
+      const widthOfParent = this.$parent.$el.clientWidth
       let styles = {
         fontFamily,
-        height,
         transitionTimingFunction: transitionCurves.standard,
         transitionDuration: transitionDurations.standard,
+      }
+      if (aspectRatio === '16:9') {
+        styles = {
+          ...styles,
+          height: `${widthOfParent / (16 / 9)}px`,
+        }
       }
       if (aspectRatio === '1:1' || aspectRatio === 'square') {
         styles = {
@@ -62,7 +64,7 @@ img {
   height: 100%;
 }
 
-.base {
+.md-card-media-base {
   width: 100%;
   overflow: hidden;
 }
