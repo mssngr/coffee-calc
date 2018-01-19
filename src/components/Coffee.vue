@@ -1,43 +1,50 @@
 <template scope="props">
-  <div>
-    <h1>
-      Coffee for
-      <span>{{servings}}</span>
-    </h1>
-    <md-card>
-      <md-card-header><h1 :style="cardHeader">{{currentSize.label}}</h1></md-card-header>
-      <img class="coffeeIcon" :src="currentSize.media" />
-      <h2>
-        <span>{{beans}}g</span> of beans<br>
-        <span>{{bloom}}g</span> of bloom water<br>
-        <span>{{total}}g</span> of total water
-      </h2>
-    </md-card>
-    <div id="buttonsContainer">
-      <md-button
-        :raised="true"
-        :primary="true"
-        :inverted="true"
-        :focused="ounces === (6 * servings)"
-        label="Small"
-        @click="setOunces(6 * servings)"
-      />
-      <md-button
-        :raised="true"
-        :primary="true"
-        :inverted="true"
-        :focused="ounces === (8 * servings)"
-        label="Medium"
-        @click="setOunces(8 * servings)"
-      />
-      <md-button
-        :raised="true"
-        :primary="true"
-        :inverted="true"
-        :focused="ounces === (12 * servings)"
-        label="Large"
-        @click="setOunces(12 * servings)"
-      />
+  <div id="flex">
+    <div id="coffeeApp">
+      <h1>
+        Coffee for
+        <select v-model="servings">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+        </select>
+      </h1>
+      <md-card>
+        <md-card-header><h1 :style="cardHeader">{{currentSize.label}}</h1></md-card-header>
+        <img class="coffeeIcon" :src="currentSize.media" />
+        <h2>
+          <span>{{beans}}g</span> of beans<br>
+          <span>{{bloom}}g</span> of bloom water<br>
+          <span>{{total}}g</span> of total water
+        </h2>
+      </md-card>
+      <div id="buttonsContainer">
+        <md-button
+          :raised="true"
+          :primary="true"
+          :inverted="true"
+          :focused="size === 8"
+          label="Small"
+          @click="setSize(8)"
+        />
+        <md-button
+          :raised="true"
+          :primary="true"
+          :inverted="true"
+          :focused="size === 9.5945"
+          label="Medium"
+          @click="setSize(9.5945)"
+        />
+        <md-button
+          :raised="true"
+          :primary="true"
+          :inverted="true"
+          :focused="size === 12"
+          label="Large"
+          @click="setSize(12)"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -56,14 +63,15 @@ export default {
   name: 'coffee',
   data() {
     return {
+      size: 9.5945,
       servings: 2,
-      beans: 30,
-      ounces: 16,
+      beans: 34,
+      ounces: 19.189,
       smallCoffee,
       mediumCoffee,
       largeCoffee,
       cardHeader: {
-        backgroundColor: 'blue',
+        backgroundColor: 'white',
       },
     }
   },
@@ -77,14 +85,14 @@ export default {
     currentSize() {
       switch (this.ounces) {
 
-        case 6 * this.servings:
+        case 8 * this.servings:
           return {
             id: 'sm',
             label: 'Small',
             media: smallCoffee,
           }
 
-        case 8 * this.servings:
+        case 9.5945 * this.servings:
           return {
             id: 'md',
             label: 'Medium',
@@ -109,11 +117,20 @@ export default {
     },
   },
   watch: {
+    size() {
+      this.ounces = this.size * this.servings
+    },
+    servings() {
+      this.ounces = this.size * this.servings
+    },
     ounces() {
-      this.beans = Math.round((this.ounces * 29.57) / 16)
+      this.beans = Math.round((this.ounces * 28.3495) / 16)
     },
   },
   methods: {
+    setSize(size) {
+      this.size = size
+    },
     setOunces(size) {
       this.ounces = size
     },
@@ -122,6 +139,10 @@ export default {
 </script>
 
 <style scoped>
+body {
+  font-family: 'Roboto';
+}
+
 h1 {
   text-align: center;
   font-weight: normal;
@@ -142,13 +163,37 @@ span {
   font-weight: bold;
 }
 
-img {
-  height: 7.5em;
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  text-align: center;
+  font-weight: normal;
+  font-size: 2rem;
+  border: 0;
+  text-decoration: underline;
+  background: transparent;
 }
 
 .coffeeIcon {
   width: 100%;
   height: 100%;
+}
+
+#flex {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+}
+
+#coffeeApp {
+  width: 100%;
+  max-width: 343px;
+  transform: scale(0.9);
+  margin-top: -30px;
+  padding-bottom: 15px;
 }
 
 #buttonsContainer {
